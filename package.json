@@ -1,0 +1,27 @@
+{
+  "name": "bedrock-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "bedrock": "./src/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mono-company/bedrock-cli.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mono-company/bedrock-cli/issues"
+  },
+  "homepage": "https://github.com/mono-company/bedrock-cli#readme",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "init-package-json": "^1.9.3"
+  }
+}
