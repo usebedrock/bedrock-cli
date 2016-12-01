@@ -1,6 +1,7 @@
 const exec = require('child_process').execSync;
 const path = require('path');
 const fs = require('fs');
+const merge = require('lodash/merge');
 
 const BEDROCK_REPO = {
   ssh: 'git@github.com:mono-company/bedrock.git'
@@ -17,11 +18,12 @@ module.exports = function (opts) {
   exec(`rm -rf ${path.join(BEDROCK_BASE_DIR, '.git')}`);
 
   exec(`cp -r ${BEDROCK_BASE_DIR}/core .`);
+  exec(`cp -r ${path.join(BEDROCK_BASE_DIR, 'gulpfile.js')} .`);
 
   const bedrockPackageJson = JSON.parse(fs.readFileSync(path.join(BEDROCK_BASE_DIR, 'package.json'), 'utf8'));
   const projectPackageJson = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8'));
 
-  const generatedPackageJson = Object.assign({}, bedrockPackageJson, projectPackageJson);
+  const generatedPackageJson = merge(bedrockPackageJson, projectPackageJson);
 
   if (!projectPackageJson.repository) {
     delete generatedPackageJson.repository;
