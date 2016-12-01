@@ -5,9 +5,10 @@
 const program = require('commander');
 const init = require('./lib/init');
 const upgrade = require('./lib/upgrade');
+const cliVersion = require('../package.json').version;
 
 program
-  .version('0.0.1');
+  .version(cliVersion);
 
 program
   .command('init [template]')
