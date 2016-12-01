@@ -22,6 +22,7 @@
   "homepage": "https://github.com/mono-company/bedrock-cli#readme",
   "dependencies": {
     "commander": "^2.9.0",
-    "init-package-json": "^1.9.3"
+    "init-package-json": "^1.9.3",
+    "lodash": "^4.17.2"
   }
 }
