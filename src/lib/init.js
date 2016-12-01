@@ -9,7 +9,7 @@ const BEDROCK_REPO = {
 
 const TEMPLATE_REPOS = {
   'bootstrap': {
-    'ssh': 'git@github.com:mono-company/bedrock-template-bootstrap.git'
+    'ssh': 'git@github.com:mono-company/bedrock-bootstrap-starter.git'
   }
 };
 
