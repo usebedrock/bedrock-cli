@@ -13,12 +13,21 @@ const TEMPLATE_REPOS = {
   }
 };
 
+const ROOT_FILES_TO_COPY = [
+  '.editorconfig',
+  '.gitignore',
+  '.nvmrc',
+];
+
 const TMP_DIR = '.bedrock-tmp';
 const BEDROCK_BASE_DIR = path.join(TMP_DIR, 'base');
 const TEMPLATE_DIR = path.join(TMP_DIR, 'template');
 
 module.exports = function (opts) {
   console.log('Initializing new project with template:', opts.template);
+
+  // Clean up tmp directory
+  exec(`rm -rf ${TMP_DIR}`);
 
   if (opts.template && !TEMPLATE_REPOS[opts.template]) {
     const supportedTemplates = Object.keys(TEMPLATE_REPOS).map(t => `'${t}'`).join(', ');
@@ -31,6 +40,9 @@ module.exports = function (opts) {
 
   // If no template, copy bedrock repo verbatim to current directory
   exec(`cp -r ${BEDROCK_BASE_DIR}/* .`);
+  ROOT_FILES_TO_COPY.forEach(function (rootFileToCopy) {
+    exec(`cp -r ${path.join(BEDROCK_BASE_DIR, rootFileToCopy)} .`);
+  });
 
   if (opts.template) {
     exec(`git clone ${TEMPLATE_REPOS[opts.template].ssh} ${TEMPLATE_DIR}`);
