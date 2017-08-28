@@ -5,6 +5,7 @@
 const program = require('commander');
 const init = require('./lib/init');
 const upgrade = require('./lib/upgrade');
+const migrateToPug = require('./lib/migrate-to-pug');
 const cliVersion = require('../package.json').version;
 
 program
@@ -22,9 +23,12 @@ program
 program
   .command('upgrade')
   .description('Upgrade Bedrock install')
-  .action(() => {
-    upgrade();
-  });
+  .action(upgrade);
+
+program
+  .command('migrate-to-pug')
+  .description('Migrates all Jade files and code to Pug.')
+  .action(migrateToPug);
 
 program
   .parse(process.argv);
