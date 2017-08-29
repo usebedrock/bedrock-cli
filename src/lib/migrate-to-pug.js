@@ -12,8 +12,6 @@ const paths = {
   },
 };
 
-const bedrockConfig = require(paths.config);
-
 function changeExtensionForAllJadeFiles() {
   const allFilePaths = [
     ...glob.sync(paths.templates.content),
