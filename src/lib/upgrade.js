@@ -25,24 +25,7 @@ module.exports = function (opts) {
   // Clean up tmp directory
   exec(`rm -rf ${TMP_DIR}`);
 
-  // Clone the bedrock repo to a tmp directory
-  exec(`git clone ${BEDROCK_REPO.ssh} ${BEDROCK_BASE_DIR}`);
-  exec(`rm -rf ${path.join(BEDROCK_BASE_DIR, '.git')}`);
-
-  exec(`cp -r ${BEDROCK_BASE_DIR}/core .`);
-
-  ROOT_FILES_TO_COPY.forEach(function (rootFileToCopy) {
-    exec(`cp -r ${path.join(BEDROCK_BASE_DIR, rootFileToCopy)} .`);
-  });
-
-  const bedrockPackageJson = JSON.parse(fs.readFileSync(path.join(BEDROCK_BASE_DIR, 'package.json'), 'utf8'));
   const projectPackageJson = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8'));
-
-  if (projectPackageJson.bedrockVersion) {
-    console.log(`Upgrading from version ${projectPackageJson.bedrockVersion} to ${bedrockPackageJson.version}`);
-  } else {
-    console.log(`Upgrading to version ${bedrockPackageJson.version}.`);
-  }
 
   function migrateToPugIfNecessary() {
     if (!projectPackageJson.bedrockVersion || (projectPackageJson.bedrockVersion && semver.lt(projectPackageJson.bedrockVersion, '1.2.0'))) {
@@ -55,6 +38,24 @@ module.exports = function (opts) {
   }
 
   migrateToPugIfNecessary().then(function () {
+    // Clone the bedrock repo to a tmp directory
+    exec(`git clone ${BEDROCK_REPO.ssh} ${BEDROCK_BASE_DIR}`);
+    exec(`rm -rf ${path.join(BEDROCK_BASE_DIR, '.git')}`);
+
+    const bedrockPackageJson = JSON.parse(fs.readFileSync(path.join(BEDROCK_BASE_DIR, 'package.json'), 'utf8'));
+
+    if (projectPackageJson.bedrockVersion) {
+      console.log(`Upgrading from version ${projectPackageJson.bedrockVersion} to ${bedrockPackageJson.version}`);
+    } else {
+      console.log(`Upgrading to version ${bedrockPackageJson.version}.`);
+    }
+
+    exec(`cp -r ${BEDROCK_BASE_DIR}/core .`);
+
+    ROOT_FILES_TO_COPY.forEach(function (rootFileToCopy) {
+      exec(`cp -r ${path.join(BEDROCK_BASE_DIR, rootFileToCopy)} .`);
+    });
+
     const generatedPackageJson = merge({}, bedrockPackageJson, projectPackageJson);
 
     if (!projectPackageJson.repository) {
