@@ -15,7 +15,6 @@ const TMP_DIR = '.bedrock-tmp';
 const BEDROCK_BASE_DIR = path.join(TMP_DIR, 'base');
 const ROOT_FILES_TO_COPY = [
   'gulpfile.js',
-  'README-BEDROCK.md',
   '.nvmrc',
 ];
 
