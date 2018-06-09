@@ -4,12 +4,15 @@ const fs = require('fs');
 const merge = require('lodash/merge');
 
 const BEDROCK_REPO = {
-  ssh: 'git@github.com:mono-company/bedrock.git'
+  ssh: 'git@github.com:usebedrock/bedrock.git'
 };
 
 const TEMPLATE_REPOS = {
   'bootstrap': {
-    'ssh': 'git@github.com:mono-company/bedrock-template-bootstrap.git'
+    'ssh': 'git@github.com:usebedrock/bedrock-base-bootstrap4.git'
+  },
+  'material': {
+    'ssh': 'git@github.com:usebedrock/bedrock-base-material-design.git'
   }
 };
 
