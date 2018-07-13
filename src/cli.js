@@ -12,11 +12,11 @@ program
   .version(cliVersion);
 
 program
-  .command('init [template]')
-  .description('Initialize Bedrock')
-  .action(template => {
+  .command('init [base]')
+  .description('Initialize Bedrock with an optional base')
+  .action(function (base) {
     init({
-      template
+      base
     });
   });
 
