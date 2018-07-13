@@ -23,6 +23,7 @@ program
 program
   .command('upgrade')
   .description('Upgrade Bedrock install')
+  .option('-d, --dev', 'Use development branch')
   .action(upgrade);
 
 program

@@ -20,6 +20,7 @@ const ROOT_FILES_TO_COPY = [
 
 module.exports = function (opts) {
   console.log('Upgrading your Bedrock install!');
+  const branchToClone = opts.dev ? 'develop' : 'master';
 
   // Clean up tmp directory
   exec(`rm -rf ${TMP_DIR}`);
@@ -38,7 +39,7 @@ module.exports = function (opts) {
 
   migrateToPugIfNecessary().then(function () {
     // Clone the bedrock repo to a tmp directory
-    exec(`git clone ${BEDROCK_REPO.ssh} ${BEDROCK_BASE_DIR}`);
+    exec(`git clone --single-branch -b ${branchToClone} ${BEDROCK_REPO.ssh} ${BEDROCK_BASE_DIR}`);
     exec(`rm -rf ${path.join(BEDROCK_BASE_DIR, '.git')}`);
 
     const bedrockPackageJson = JSON.parse(fs.readFileSync(path.join(BEDROCK_BASE_DIR, 'package.json'), 'utf8'));
