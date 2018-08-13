@@ -17,7 +17,6 @@ along with some other files. Your files in `content/` will not be changed.
 
 Upgrade referencing Bedrock's `develop` branch instead of master. Warning: for advanced users only.
 
-#### `bedrock init`
+#### `bedrock init [base]`
 
-Initialize a new Bedrock project.
-
+Initialize a new Bedrock project. You can initialize a Bedrock project from a base where `base` can be either `material` or `bootstrap4`.
