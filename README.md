@@ -12,3 +12,7 @@ bedrock-cli is the command line interface to [Bedrock](bedrock.mono.company).
 
 This command upgrades your current Bedrock project to the latest core Bedrock code. Everything in `core/` will be replaced,
 along with some other files. Your files in `content/` will not be changed.
+
+#### `bedrock init`
+
+Initialize a new Bedrock project.
