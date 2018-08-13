@@ -9,7 +9,7 @@ const migrateToPug = require('./lib/migrate-to-pug');
 const cliVersion = require('../package.json').version;
 
 program
-  .version(cliVersion);
+  .version(cliVersion, '-v, --version');
 
 program
   .command('init [base]')
