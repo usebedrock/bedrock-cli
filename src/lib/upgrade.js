@@ -28,7 +28,7 @@ module.exports = function (opts) {
   const projectPackageJson = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8'));
 
   function migrateToPugIfNecessary() {
-    if (!projectPackageJson.bedrockVersion || (projectPackageJson.bedrockVersion && semver.lt(projectPackageJson.bedrockVersion, '1.2.0'))) {
+    if (!projectPackageJson.bedrockVersion || projectPackageJson.bedrockVersion && semver.lt(semver.coerce(projectPackageJson.bedrockVersion), '1.2.0'))) {
       console.log('It looks like this Bedrock project still uses Jade. Migrating to Pug.');
       console.log(chalk.dim('If your project already uses Pug, nothing should change.'));
       return migrateToPug();
