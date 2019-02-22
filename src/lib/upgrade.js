@@ -52,6 +52,7 @@ module.exports = function (opts) {
     }
 
     exec(`cp -r ${BEDROCK_BASE_DIR}/core .`);
+    exec(`cp -r ${BEDROCK_BASE_DIR}/content/docs/templates/ .`);
 
     ROOT_FILES_TO_COPY.forEach(function (rootFileToCopy) {
       exec(`cp -r ${path.join(BEDROCK_BASE_DIR, rootFileToCopy)} .`);
