@@ -51,7 +51,9 @@ module.exports = function (opts) {
       console.log(`Upgrading to version ${bedrockPackageJson.version}.`);
     }
 
+    console.log(chalk.green('Copying core templates.'));
     exec(`cp -r ${BEDROCK_BASE_DIR}/core .`);
+    console.log(chalk.green('Copying styleguide override templates.'));
     exec(`cp -r ${BEDROCK_BASE_DIR}/content/docs/templates/ .`);
 
     ROOT_FILES_TO_COPY.forEach(function (rootFileToCopy) {
