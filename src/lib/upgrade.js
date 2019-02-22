@@ -38,7 +38,8 @@ module.exports = function (opts) {
   }
 
   migrateToPugIfNecessary().then(function () {
-    // Clone the bedrock repo to a tmp directory
+
+    // Clone the Bedrock repo to a temporary directory
     exec(`git clone --single-branch -b ${branchToClone} ${BEDROCK_REPO.ssh} ${BEDROCK_BASE_DIR}`);
     exec(`rm -rf ${path.join(BEDROCK_BASE_DIR, '.git')}`);
 
