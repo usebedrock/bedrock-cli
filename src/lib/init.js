@@ -9,6 +9,9 @@ const BASES = {
   bootstrap4: {
     branchName: 'bootstrap4base',
   },
+  jungle: {
+    branchName: 'junglebase',
+  },
 };
 
 const ROOT_FILES_TO_COPY = [
