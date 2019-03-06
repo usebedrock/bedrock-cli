@@ -26,6 +26,9 @@
     "glob": "^7.1.2",
     "init-package-json": "^1.9.3",
     "lodash": "^4.17.11",
-    "semver": "^5.4.1"
+    "semver": "^5.6.0"
+  },
+  "devDependencies": {
+    "ansi-styles": "^3.2.1"
   }
 }

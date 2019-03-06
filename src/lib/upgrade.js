@@ -8,7 +8,7 @@ const merge = require('lodash/merge');
 const migrateToPug = require('./migrate-to-pug');
 
 const BEDROCK_REPO = {
-  ssh: 'git@github.com:mono-company/bedrock.git'
+  ssh: 'git@github.com:usebedrock/bedrock.git'
 };
 
 const TMP_DIR = '.bedrock-tmp';
@@ -28,6 +28,7 @@ module.exports = function (opts) {
   const projectPackageJson = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8'));
 
   function migrateToPugIfNecessary() {
+
     if (!projectPackageJson.bedrockVersion || projectPackageJson.bedrockVersion && semver.lt(semver.coerce(projectPackageJson.bedrockVersion), '1.2.0')) {
       console.log('It looks like this Bedrock project still uses Jade. Migrating to Pug.');
       console.log(chalk.dim('If your project already uses Pug, nothing should change.'));
@@ -35,6 +36,18 @@ module.exports = function (opts) {
     } else {
       return Promise.resolve();
     }
+
+  }
+
+  function contentTemplatesIfNecessary() {
+
+    if (!projectPackageJson.bedrockVersion || projectPackageJson.bedrockVersion && semver.lt(semver.coerce(projectPackageJson.bedrockVersion), '1.17.1')) {
+      console.log(chalk.green('Copying styleguide override templates.'));
+      //exec(`cp -rn ${BEDROCK_BASE_DIR}/content/docs/templates/ ./content/docs/templates/`);
+    } else {
+      return Promise.resolve();
+    }
+
   }
 
   migrateToPugIfNecessary().then(function () {
@@ -53,35 +66,38 @@ module.exports = function (opts) {
 
     console.log(chalk.green('Copying core templates.'));
     exec(`cp -r ${BEDROCK_BASE_DIR}/core .`);
-    console.log(chalk.green('Copying styleguide override templates.'));
-    exec(`cp -r ${BEDROCK_BASE_DIR}/content/docs/templates/ .`);
 
     ROOT_FILES_TO_COPY.forEach(function (rootFileToCopy) {
       exec(`cp -r ${path.join(BEDROCK_BASE_DIR, rootFileToCopy)} .`);
     });
 
-    const generatedPackageJson = merge({}, bedrockPackageJson, projectPackageJson);
+    contentTemplatesIfNecessary().then(function () {
 
-    if (!projectPackageJson.repository) {
-      delete generatedPackageJson.repository;
-    }
+      const generatedPackageJson = merge({}, bedrockPackageJson, projectPackageJson);
 
-    if (!projectPackageJson.bugs) {
-      delete generatedPackageJson.bugs;
-    }
+      if (!projectPackageJson.repository) {
+        delete generatedPackageJson.repository;
+      }
 
-    if (!projectPackageJson.homepage) {
-      delete generatedPackageJson.homepage;
-    }
+      if (!projectPackageJson.bugs) {
+        delete generatedPackageJson.bugs;
+      }
 
-    generatedPackageJson.bedrockVersion = bedrockPackageJson.version;
+      if (!projectPackageJson.homepage) {
+        delete generatedPackageJson.homepage;
+      }
 
-    // Clean up tmp directory
-    exec(`rm -rf ${TMP_DIR}`);
+      generatedPackageJson.bedrockVersion = bedrockPackageJson.version;
 
-    fs.writeFileSync('./package.json', JSON.stringify(generatedPackageJson, null, 2) + '\n');
+      // Clean up tmp directory
+      exec(`rm -rf ${TMP_DIR}`);
 
-    console.log(chalk.green('Your Bedrock project has been upgraded!'));
-    console.log(chalk.yellow('Keep in mind that you may need to run `npm install` to install any new or updated dependencies.'));
+      fs.writeFileSync('./package.json', JSON.stringify(generatedPackageJson, null, 2) + '\n');
+
+      console.log(chalk.green('Your Bedrock project has been upgraded!'));
+      console.log(chalk.yellow('Keep in mind that you may need to run `npm install` to install any new or updated dependencies.'));
+
+    });
+
   });
 };
