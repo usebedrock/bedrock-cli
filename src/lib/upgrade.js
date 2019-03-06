@@ -43,7 +43,8 @@ module.exports = function (opts) {
 
     if (!projectPackageJson.bedrockVersion || projectPackageJson.bedrockVersion && semver.lt(semver.coerce(projectPackageJson.bedrockVersion), '1.17.1')) {
       console.log(chalk.green('Copying styleguide override templates.'));
-      //exec(`cp -rn ${BEDROCK_BASE_DIR}/content/docs/templates/ ./content/docs/templates/`);
+      exec(`cp -rn ${BEDROCK_BASE_DIR}/content/docs/templates/ ./content/docs/templates/`);
+      return Promise.resolve();
     } else {
       return Promise.resolve();
     }
