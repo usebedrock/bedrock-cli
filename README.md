@@ -21,9 +21,9 @@ Upgrade referencing Bedrock's `develop` branch instead of master. Warning: for a
 
 Initialize a new Bedrock project. You can initialize a Bedrock project from a base where `base` can be either `material` or `bootstrap4`.
 
-## Develop
+## Developing the CLI
 
-### Test locally
+### Test the CLI locally
 
 Use this command (point to the right location):
 
