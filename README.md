@@ -1,6 +1,6 @@
 # bedrock-cli
 
-bedrock-cli is the command line interface to [Bedrock](bedrock.mono.company).
+bedrock-cli is the command line interface to [Bedrock](https://bedrockapp.org/).
 
 ### How to install
 
