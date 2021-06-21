@@ -21,8 +21,8 @@ const ROOT_FILES_TO_COPY = [
 module.exports = function (opts) {
   console.log('Upgrading your Bedrock install!');
   
-  const branchToClone = opts.dev ? 'develop' : 'master';
-  const branchToClone = opts.canary ? 'canary' : 'master';
+  var branchToClone = opts.dev ? 'develop' : 'master';
+  branchToClone = opts.canary ? 'canary' : 'master';
 
   // Clean up tmp directory
   exec(`rm -rf ${TMP_DIR}`);
