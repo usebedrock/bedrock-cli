@@ -24,6 +24,7 @@ program
   .command('upgrade')
   .description('Upgrade Bedrock install')
   .option('-d, --dev', 'Use development branch')
+  .option('-c, --canary', 'Use canary branch')
   .action(upgrade);
 
 program

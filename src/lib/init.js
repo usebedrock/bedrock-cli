@@ -2,17 +2,6 @@ const exec = require('child_process').execSync;
 const path = require('path');
 
 const BEDROCK_REPO_GIT_URL = 'https://github.com/usebedrock/bedrock.git';
-const BASES = {
-  material: {
-    branchName: 'materialdesignbase',
-  },
-  bootstrap4: {
-    branchName: 'bootstrap4base',
-  },
-  jungle: {
-    branchName: 'junglebase',
-  },
-};
 
 const ROOT_FILES_TO_COPY = [
   '.editorconfig',
@@ -29,14 +18,6 @@ module.exports = function (opts) {
 
   // Clean up tmp directory
   exec(`rm -rf ${TMP_DIR}`);
-
-  if (base) {
-    if (!Object.keys(BASES).includes(base)) {
-      throw new Error(`The '${base}' base is not a valid Bedrock base. The following bases are supported: ${Object.keys(BASES).map(b => `'${b}'`).join(', ')}.`);
-    }
-
-    branchToClone = BASES[base].branchName;
-  }
 
   // Clone the bedrock repo to a tmp directory
   exec(`git clone --single-branch -b ${branchToClone} ${BEDROCK_REPO_GIT_URL} ${TMP_DIR}`);
